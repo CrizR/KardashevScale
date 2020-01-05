@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
     root: {
         '& > *': {
             margin: theme.spacing(3),
-            width: '500px',
+            width: '300px',
         },
     },
     floatingLabelFocusStyle: {
