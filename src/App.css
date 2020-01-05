@@ -47,17 +47,18 @@
 }
 
 
-
 .civStyle {
-    padding: 50px;
+    padding: 50px 200px 200px;
     font-size: 14px;
     text-align: center;
+    max-width: 500px;
 }
 
 .civStyle h2 {
     font-size: 14px;
     text-align: left;
 }
+
 .civStyle h1 {
     text-align: left;
 }
@@ -74,5 +75,19 @@
 }
 
 .civStyle ul li {
+    font-size: 14px;
+}
+
+.civStyle p {
+    text-justify: auto;
+    text-align: justify;
+}
+
+.civStyle .MuiTypography-colorPrimary {
+    color: white !important;
+}
+
+.MuiTypography-colorPrimary {
+    color: white !important;
     font-size: 14px;
 }
