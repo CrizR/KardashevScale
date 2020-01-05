@@ -6,19 +6,18 @@ import TextField from "@material-ui/core/TextField";
 import {makeStyles} from "@material-ui/core";
 import NumberFormat from "react-number-format";
 import PropTypes from "prop-types";
-import Formula from "./components/Formula";
-import {Text} from "react-mathjax2";
+import Link from "@material-ui/core/Link";
 
 const useStyles = makeStyles(theme => ({
     root: {
         '& > *': {
             margin: theme.spacing(3),
-            width: '300px',
+            width: '80%',
         },
     },
     floatingLabelFocusStyle: {
         color: "white",
-        fontSize: '18px'
+        fontSize: '14px'
     },
     multilineColor: {
         color: 'white',
@@ -102,6 +101,9 @@ function App() {
                     />
                 </form>
                 <RenderContent/>
+                <div style={{paddingBottom: '40px', bottom: '0'}}>
+                    <Link href={'https://en.wikipedia.org/wiki/Kardashev_scale'}><strong>Source</strong></Link>
+                </div>
             </header>
         </div>
     );

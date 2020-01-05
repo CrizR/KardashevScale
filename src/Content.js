@@ -63,12 +63,7 @@ export default class Content extends React.Component {
     }
 
     render() {
-        return <div>
-            <CivTier tier={this.tier}/>
-            <div style={{paddingBottom: '40px'}}>
-                <Link href={'https://en.wikipedia.org/wiki/Kardashev_scale'}><strong>Source</strong></Link>
-            </div>
-        </div>
+        return <CivTier tier={this.tier}/>
     }
 
 }
