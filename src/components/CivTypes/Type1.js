@@ -12,7 +12,7 @@ export default class Type1 extends Component {
                 about four orders of magnitude higher than the amount presently attained on Earth, with energy
                 consumption at ≈2×1013 watts. The astronomer Guillermo A. Lemarchand stated this as a level near
                 contemporary terrestrial civilization with an energy capability equivalent to the solar insolation on
-                Earth, between 1016 and 1017 watts.[2]
+                Earth, between 1016 and 1017 watts.
             </p>
             <ul>
                 <li>Relies almost entirely on renewable energy</li>

@@ -12,7 +12,7 @@ export default class Type2 extends Component {
                 successful construction of a Dyson sphere—with energy consumption at ≈4×1033 erg/sec.[1] Lemarchand
                 stated this as a civilization capable of using and channeling the entire radiation output of its star.
                 The energy use would then be comparable to the luminosity of the Sun, about 4×1033 erg/sec (4×1026
-                watts).[2]
+                watts).
             </p>
             <ul>
                 <li>Travelling throughout the solar system at this stage is likely effortless</li>

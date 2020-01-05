@@ -10,7 +10,7 @@ export default class Type3 extends Component {
             <p>
                 A civilization in possession of energy at the scale of its own galaxy, with energy consumption at
                 ≈4×1044 erg/sec.[1] Lemarchand stated this as a civilization with access to the power comparable to the
-                luminosity of the entire Milky Way galaxy, about 4×1044 erg/sec (4×1037 watts).[2]
+                luminosity of the entire Milky Way galaxy, about 4×1044 erg/sec (4×1037 watts).
             </p>
             <ul>
                 <li>Use and storage of energy from supermassive black holes</li>
