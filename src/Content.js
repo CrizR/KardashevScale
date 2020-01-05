@@ -21,7 +21,7 @@ class BaseContent extends Component {
                 Kardashev
                 in 1964. The above formula was proposed by Carl Sagan to allow for intermediate values between
                 civilization types.
-                Input a value in Megawatts (1 - 10^60) above to see the types of civilizations.
+                Input a value in Watts (1 - 10^60) above to see the types of civilizations.
             </p>
         </div>;
     }
