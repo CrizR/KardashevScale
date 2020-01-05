@@ -4,8 +4,8 @@ import * as PropTypes from "prop-types";
 export default class Type4 extends Component {
     render() {
         return <div className={"civStyle"}>
-            <h1>Type IV Civilization - {this.props.tier}</h1>
-            <h2>Masters of the Universe</h2>
+            <h2>Type IV Civilization - {this.props.tier}</h2>
+            <h3>Masters of the Universe</h3>
             <p>A universal civilization, capable of harnessing the energy of the whole universe.</p>
             <ul>
                 <li>Some form of teleportation or wormhole-esque space travel is a certainty</li>

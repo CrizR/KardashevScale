@@ -5,8 +5,8 @@ import * as PropTypes from "prop-types";
 export default class Type2 extends Component {
     render() {
         return <div className={"civStyle"}>
-            <h1>Type II Civilization - {this.props.tier}</h1>
-            <h2>Star Masters</h2>
+            <h2>Type II Civilization - {this.props.tier}</h2>
+            <h3>Star Masters</h3>
             <p>
                 A civilization capable of harnessing the energy radiated by its own star—for example, the stage of
                 successful construction of a Dyson sphere—with energy consumption at ≈4×1033 erg/sec.[1] Lemarchand

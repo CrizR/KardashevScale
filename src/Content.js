@@ -63,7 +63,7 @@ export default class Content extends React.Component {
     }
 
     render() {
-        return <CivTier tier={this.tier}/>
+        return <div style={{marginTop: '200px'}}><CivTier tier={this.tier}/></div>
     }
 
 }

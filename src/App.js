@@ -36,7 +36,7 @@ function NumberFormatCustom(props) {
             onValueChange={values => {
                 onChange({
                     target: {
-                        value: values.value,
+                        value: values === null ? 0 : values.value,
                     },
                 });
             }}
@@ -57,7 +57,7 @@ function App() {
 
     const classes = useStyles();
     const [values, setValues] = React.useState({
-        numberformat: '0',
+        numberformat: '1',
     });
 
     const handleChange = name => event => {
@@ -83,7 +83,8 @@ function App() {
         <div className="App">
             <audio style={{display: 'none'}} src={mp3_file} controls loop autoPlay/>
             <header className="App-header">
-                <h4>Kardashev Scale</h4>
+                <div style={{position: 'absolute'}}>
+                <h2 style={{marginTop: '40px'}}>Kardashev Scale</h2>
                 <form className={classes.root}>
                     <TextField
                         color='secondary'
@@ -100,6 +101,7 @@ function App() {
                         }}
                     />
                 </form>
+                </div>
                 <RenderContent/>
                 <div style={{paddingBottom: '40px', bottom: '0'}}>
                     <Link href={'https://en.wikipedia.org/wiki/Kardashev_scale'}><strong>Source</strong></Link>
