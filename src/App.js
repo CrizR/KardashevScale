@@ -6,7 +6,7 @@ import TextField from "@material-ui/core/TextField";
 import {makeStyles} from "@material-ui/core";
 import NumberFormat from "react-number-format";
 import PropTypes from "prop-types";
-import Formula from "./Formula";
+import Formula from "./components/Formula";
 import {Text} from "react-mathjax2";
 
 const useStyles = makeStyles(theme => ({
