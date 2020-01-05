@@ -40,8 +40,8 @@ function NumberFormatCustom(props) {
                     },
                 });
             }}
-            thousandSeparator
             isNumericString={false}
+            prefix="10^"
             suffix=" MW"
         />
     );
@@ -57,7 +57,7 @@ function App() {
 
     const classes = useStyles();
     const [values, setValues] = React.useState({
-        numberformat: '1',
+        numberformat: '0',
     });
 
     const handleChange = name => event => {
@@ -74,7 +74,7 @@ function App() {
      */
 
     function RenderContent() {
-        const krating = (Math.log10(values.numberformat * 1000000) - 6) / 10;
+        const krating = (Math.log10(10**values.numberformat * 1000000) - 6) / 10;
         console.log(krating);
         return <Content tier={krating}/>
     }
