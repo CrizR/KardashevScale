@@ -50,6 +50,8 @@ function CivTier(props) {
         return <Type5 tier={tier}/>
     } else if (tier >= 6) {
         return <Type6 tier={tier}/>;
+    } else {
+        return <BaseContent/>
     }
 
 }
