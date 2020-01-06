@@ -5,7 +5,7 @@ import * as PropTypes from "prop-types";
 export default class Type3 extends Component {
     render() {
         return <div className={"civStyle"}>
-            <h2>Type III Civilization - {this.props.tier}</h2>
+            <h2>Type III Civilization {this.props.showTier ? - this.props.tier : null}</h2>
             <h3>Galaxy Masters</h3>
             <p>
                 A civilization in possession of energy at the scale of its own galaxy, with energy consumption at
@@ -26,7 +26,6 @@ export default class Type3 extends Component {
                     Civilizations</Link>
                 </li>
             </ul>
-            <img src={"t3.png"} className="App-logo" alt="logo"/>
         </div>;
     }
 }

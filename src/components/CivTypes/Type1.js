@@ -4,7 +4,7 @@ import * as PropTypes from "prop-types";
 export default class Type1 extends Component {
     render() {
         return <div className={"civStyle"}>
-            <h2>Type I Civilization - {this.props.tier}</h2>
+            <h2>Type I Civilization {this.props.showTier ? - this.props.tier : null}</h2>
             <h3>Planet Masters</h3>
             <p>
                 The civilization of Type I is usually defined as one that can harness all the energy that falls on a
@@ -24,8 +24,6 @@ export default class Type1 extends Component {
                 <li>Likely has control over volcanoes, the weather, and even earthquakes.
                 </li>
             </ul>
-            <img src={"t1.png"} className="App-logo" alt="logo"/>
-
         </div>;
     }
 }
