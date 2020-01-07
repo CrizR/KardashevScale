@@ -21,7 +21,7 @@ import Type6 from "../CivTypes/Type6";
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
-const planets = 'http://kardashev-calc.s3.amazonaws.com/star.mp4';
+const planets = 'http://kardashev-calc.s3.amazonaws.com/planets.mp4';
 const multiverse = 'https://kardashev-calc.s3.amazonaws.com/multiverse.mp4';
 const galaxy = 'http://kardashev-calc.s3.amazonaws.com/galaxy.mp4';
 const galaxies = 'http://kardashev-calc.s3.amazonaws.com/galaxies.mp4';
