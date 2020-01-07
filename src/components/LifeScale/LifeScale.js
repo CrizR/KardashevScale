@@ -15,22 +15,23 @@ import TypeIV from "../MicroMaster/Type-IV";
 import TypeIII from "../MicroMaster/Type-III";
 import TypeII from "../MicroMaster/Type-II";
 import TypeI from "../MicroMaster/Type-I";
-import planets from '../../videos/planets.mp4'
-import multiverse from '../../videos/multiverse.mp4'
-import galaxy from '../../videos/galaxy.mp4'
-import galaxies from '../../videos/galaxies.mp4'
-import deep from '../../videos/deep.mp4'
-import earth from '../../videos/earth.mp4'
-import time from '../../videos/time.mp4'
-import skyline from '../../videos/skylinep.mp4'
-import star from '../../videos/star.mp4'
-import base from '../../videos/base.mp4'
+
 import Link from "@material-ui/core/Link";
 import Type6 from "../CivTypes/Type6";
-import $ from 'jquery';
 
+const planets = 'https://kardashev-calc.s3.amazonaws.com/star.mp4';
+const multiverse = 'https://kardashev-calc.s3.amazonaws.com/multiverse.mp4';
+const galaxy = 'https://kardashev-calc.s3.amazonaws.com/galaxy.mp4';
+const galaxies = 'https://kardashev-calc.s3.amazonaws.com/galaxies.mp4';
+const deep = 'https://kardashev-calc.s3.amazonaws.com/deep.mp4';
+const earth = 'https://kardashev-calc.s3.amazonaws.com/earth.mp4';
+const time = 'https://kardashev-calc.s3.amazonaws.com//time.mp4';
+const skyline = 'https://kardashev-calc.s3.amazonaws.com/skylinep.mp4';
+const star = 'https://kardashev-calc.s3.amazonaws.com/star.mp4';
+const base = 'https://kardashev-calc.s3.amazonaws.com/base.mp4';
 
 export default class LifeScale extends React.Component {
+
 
     constructor(props) {
         super(props);
@@ -102,7 +103,7 @@ export default class LifeScale extends React.Component {
                                     proposed by Carl Sagan to allow for
                                     intermediate values between civilization types. Scroll up to see the different
                                     civilization levels or use the
-                                    <Link style={{ color: 'purple !important'}} href={'/calculator'}> calculator</Link>.
+                                    <Link style={{color: 'purple !important'}} href={'/calculator'}> calculator</Link>.
                                 </p>
 
                                 <h1>Micro-Dimensional Mastery</h1>
@@ -123,7 +124,8 @@ export default class LifeScale extends React.Component {
                                     physics with particle colliders such as the Large Hadron Collider.
                                 </p>
                                 <div style={{padding: '50px', bottom: '0', position: "relative"}}>
-                                    <Link href='https://en.wikipedia.org/wiki/Kardashev_scale'><strong>Source</strong></Link>
+                                    <Link
+                                        href='https://en.wikipedia.org/wiki/Kardashev_scale'><strong>Source</strong></Link>
                                 </div>
                             </div>
                         </div>
