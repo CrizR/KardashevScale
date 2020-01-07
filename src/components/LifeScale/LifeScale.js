@@ -19,16 +19,16 @@ import TypeI from "../MicroMaster/Type-I";
 import Link from "@material-ui/core/Link";
 import Type6 from "../CivTypes/Type6";
 
-const planets = 'https://kardashev-calc.s3.amazonaws.com/star.mp4';
+const planets = 'http://kardashev-calc.s3.amazonaws.com/star.mp4';
 const multiverse = 'https://kardashev-calc.s3.amazonaws.com/multiverse.mp4';
-const galaxy = 'https://kardashev-calc.s3.amazonaws.com/galaxy.mp4';
-const galaxies = 'https://kardashev-calc.s3.amazonaws.com/galaxies.mp4';
-const deep = 'https://kardashev-calc.s3.amazonaws.com/deep.mp4';
-const earth = 'https://kardashev-calc.s3.amazonaws.com/earth.mp4';
-const time = 'https://kardashev-calc.s3.amazonaws.com//time.mp4';
-const skyline = 'https://kardashev-calc.s3.amazonaws.com/skylinep.mp4';
-const star = 'https://kardashev-calc.s3.amazonaws.com/star.mp4';
-const base = 'https://kardashev-calc.s3.amazonaws.com/base.mp4';
+const galaxy = 'http://kardashev-calc.s3.amazonaws.com/galaxy.mp4';
+const galaxies = 'http://kardashev-calc.s3.amazonaws.com/galaxies.mp4';
+const deep = 'http://kardashev-calc.s3.amazonaws.com/deep.mp4';
+const earth = 'http://kardashev-calc.s3.amazonaws.com/earth.mp4';
+const time = 'http://kardashev-calc.s3.amazonaws.com//time.mp4';
+const skyline = 'http://kardashev-calc.s3.amazonaws.com/skylinep.mp4';
+const star = 'http://kardashev-calc.s3.amazonaws.com/star.mp4';
+const base = 'http://kardashev-calc.s3.amazonaws.com/base.mp4';
 
 export default class LifeScale extends React.Component {
 
