@@ -8,7 +8,7 @@ export default class Type5 extends Component {
             <h3>Masters of the Multiverse</h3>
             <p>A multiverse culture, capable of harnessing the energy of multiple universes.</p>
             <ul>
-                <li>If you are not already a god, you must have met him/her.</li>
+                <li>If you are not already a god, you must have met him/her</li>
             </ul>
         </div>;
     }

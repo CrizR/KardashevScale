@@ -22,7 +22,7 @@ export default class Type2 extends Component {
                 <li>May feed a stellar mass into a blackhole, and collect photons emitted by the accretion disc.
                 </li>
                 <li>Potential for Star lifting, a process of removing a substantial portion of a star's matter in a
-                    controlled manner for other uses.
+                    controlled manner for other uses
                 </li>
                 <li>"Mom can we go to Mars for our family vacation?"</li>
             </ul>

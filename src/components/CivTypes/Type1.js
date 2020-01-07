@@ -16,12 +16,10 @@ export default class Type1 extends Component {
             </p>
             <ul>
                 <li>Relies almost entirely on renewable energy</li>
-                <li>In balance with nature and likely has the capacity to manipulate weather, the environment, and
-                    more.
+                <li>In balance with nature and likely has the capacity to manipulate weather, natural disasters, the environment, and
+                    more
                 </li>
                 <li>Nuclear Fusion and the usage of antimatter is a probability
-                </li>
-                <li>Likely has control over volcanoes, the weather, and even earthquakes.
                 </li>
             </ul>
         </div>;

@@ -27,7 +27,7 @@ const galaxy = 'http://kardashev-calc.s3.amazonaws.com/galaxy.mp4';
 const galaxies = 'http://kardashev-calc.s3.amazonaws.com/galaxies.mp4';
 const deep = 'http://kardashev-calc.s3.amazonaws.com/deep.mp4';
 const earth = 'http://kardashev-calc.s3.amazonaws.com/earth.mp4';
-const time = 'http://kardashev-calc.s3.amazonaws.com//time.mp4';
+const time = 'http://kardashev-calc.s3.amazonaws.com/time.mp4';
 const skyline = 'http://kardashev-calc.s3.amazonaws.com/skylinep.mp4';
 const star = 'http://kardashev-calc.s3.amazonaws.com/star.mp4';
 const base = 'http://kardashev-calc.s3.amazonaws.com/base.mp4';
@@ -96,7 +96,7 @@ export default class LifeScale extends React.Component {
 
                         <div className="component component-7">
                             <video src={base} autoPlay={true} muted={true} loop={true}/>
-                            <div style={{marginTop: '50px'}} className={"civStyle"}>
+                            <div style={{marginTop: '20px'}} className={"civStyle"}>
                                 <ArrowUpwardIcon fontSize={'large'}/>
                                 <h1>Kardashev Scale</h1>
                                 <p>
