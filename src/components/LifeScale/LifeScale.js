@@ -96,7 +96,7 @@ export default class LifeScale extends React.Component {
 
                         <div className="component component-7">
                             <video src={base} autoPlay={true} muted={true} loop={true}/>
-                            <div style={{marginTop: '100px'}} className={"civStyle"}>
+                            <div style={{marginTop: '50px'}} className={"civStyle"}>
                                 <ArrowUpwardIcon fontSize={'large'}/>
                                 <h1>Kardashev Scale</h1>
                                 <p>
@@ -129,11 +129,11 @@ export default class LifeScale extends React.Component {
                                     nuclear physics. Type VI-minus has had tentative research in the field of particle
                                     physics with particle colliders such as the Large Hadron Collider.
                                 </p>
-                                <div style={{padding: '50px', bottom: '0', position: "relative"}}>
+                                <ArrowDownwardIcon fontSize={'large'}/>
+                                <div style={{padding: '20px', bottom: '0', position: "relative"}}>
                                     <Link
                                         href='https://en.wikipedia.org/wiki/Kardashev_scale'><strong>Source</strong></Link>
                                 </div>
-                                <ArrowDownwardIcon fontSize={'large'}/>
                             </div>
 
                         </div>
