@@ -12,7 +12,7 @@ function App() {
 
     return (
         <div className="App">
-            <audio style={{display: 'none'}} src={mp3_file} controls loop autoPlay/>
+            <audio src={mp3_file} loop autoPlay/>
             <Router>
                 <Switch>
                     <Route path="/calculator" exact component={Calculator}/>
