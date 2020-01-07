@@ -15,11 +15,19 @@ import TypeIV from "../MicroMaster/Type-IV";
 import TypeIII from "../MicroMaster/Type-III";
 import TypeII from "../MicroMaster/Type-II";
 import TypeI from "../MicroMaster/Type-I";
+import planets from '../../videos/planets.mp4'
+import multiverse from '../../videos/multiverse.mp4'
 import galaxy from '../../videos/galaxy.mp4'
-import blackhole from '../../videos/blackhole.mp4'
-import Box from "@material-ui/core/Box";
+import galaxies from '../../videos/galaxies.mp4'
+import deep from '../../videos/deep.mp4'
+import earth from '../../videos/earth.mp4'
+import time from '../../videos/time.mp4'
+import skyline from '../../videos/skylinep.mp4'
+import star from '../../videos/star.mp4'
+import base from '../../videos/base.mp4'
 import Link from "@material-ui/core/Link";
 import Type6 from "../CivTypes/Type6";
+import $ from 'jquery';
 
 
 export default class LifeScale extends React.Component {
@@ -32,17 +40,10 @@ export default class LifeScale extends React.Component {
     }
 
     handlePageChange = number => {
-        this.setState({currentPage: number}); // set currentPage number, to reset it from the previous selected.
+        // this.setState({currentPage: number}); // set currentPage number, to reset it from the previous selected.
         console.log(this.state.currentPage);
-        localStorage.setItem('currentPage', JSON.stringify(this.state))
+        localStorage.setItem('currentPage', JSON.stringify(this.state));
 
-    };
-
-    handleChange = name => event => {
-        this.values = {
-            ...this.values,
-            [name]: event.target.value,
-        };
     };
 
     render() {
@@ -53,44 +54,44 @@ export default class LifeScale extends React.Component {
                         pageOnChange={this.handlePageChange}
                         customPageNumber={this.state.currentPage}
                     >
-                        <div className="component">
-                            <video src={galaxy} autoPlay={true} muted={true} loop={true}/>
+                        <div className="component component-0">
+                            <video src={time} autoPlay={true} muted={true} loop={true}/>
                             <Type6/>
                         </div>
 
-                        <div className="component">
-                            <video src={galaxy} autoPlay={true} muted={true} loop={true}/>
+                        <div className="component component-1">
+                            <video src={multiverse} autoPlay={true} muted={true} loop={true}/>
                             <Type5/>
                         </div>
 
 
-                        <div className="component">
-                            <video src={galaxy} autoPlay={true} muted={true} loop={true}/>
+                        <div className="component component-2">
+                            <video src={deep} autoPlay={true} muted={true} loop={true}/>
                             <Type4/>
                         </div>
 
-                        <div className="component">
-                            <video style={{marginLeft: '40%'}} src={blackhole} autoPlay={true} muted={true} loop={true}/>
+                        <div className="component component-3">
+                            <video src={galaxies} autoPlay={true} muted={true} loop={true}/>
                             <Type3/>
                         </div>
 
-                        <div className="component">
-                            <video src={galaxy} autoPlay={true} muted={true} loop={true}/>
+                        <div className="component component-4">
+                            <video src={star} autoPlay={true} muted={true} loop={true}/>
                             <Type2/>
                         </div>
 
-                        <div className="component">
-                            <video src={galaxy} autoPlay={true} muted={true} loop={true}/>
+                        <div className="component component-5">
+                            <video src={planets} autoPlay={true} muted={true} loop={true}/>
                             <Type1/>
                         </div>
 
-                        <div className="component">
-                            <video src={galaxy} autoPlay={true} muted={true} loop={true}/>
+                        <div className="component component-6">
+                            <video src={earth} autoPlay={true} muted={true} loop={true}/>
                             <Type0/>
                         </div>
 
-                        <div className="component">
-                            <video src={galaxy} autoPlay={true} muted={true} loop={true}/>
+                        <div className="component component-7">
+                            <video src={base} autoPlay={true} muted={true} loop={true}/>
                             <div className={"civStyle"}>
                                 <h1>Kardashev Scale</h1>
                                 <p>
@@ -128,31 +129,31 @@ export default class LifeScale extends React.Component {
                         </div>
 
 
-                        <div className="component">
-                            <video src={galaxy} autoPlay={true} muted={true} loop={true}/>
+                        <div className="component component-8">
+                            <video src={skyline} autoPlay={true} muted={true} loop={true}/>
                             <TypeI/>
                         </div>
-                        <div className="component">
+                        <div className="component component-9">
                             <video src={galaxy} autoPlay={true} muted={true} loop={true}/>
                             <TypeII/>
                         </div>
-                        <div className="component">
+                        <div className="component component-10">
                             <video src={galaxy} autoPlay={true} muted={true} loop={true}/>
                             <TypeIII/>
                         </div>
-                        <div className="component">
+                        <div className="component component-11">
                             <video src={galaxy} autoPlay={true} muted={true} loop={true}/>
                             <TypeIV/>
                         </div>
-                        <div className="component">
+                        <div className="component 12">
                             <video src={galaxy} autoPlay={true} muted={true} loop={true}/>
                             <TypeV/>
                         </div>
-                        <div className="component">
+                        <div className="component component-13">
                             <video src={galaxy} autoPlay={true} muted={true} loop={true}/>
                             <TypeVI/>
                         </div>
-                        <div className="component">
+                        <div className="component component-14">
                             <video src={galaxy} autoPlay={true} muted={true} loop={true}/>
                             <TypeO/>
                         </div>
