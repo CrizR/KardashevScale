@@ -1,11 +1,12 @@
 import React from 'react';
 import './index.css';
-import mp3_file from './music/music.mp3';
 import Calculator from "./components/Calculator/Calculator";
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import {Switch} from "react-bootstrap";
 import LifeScale from "./components/LifeScale/LifeScale";
 
+
+const mp3_file = "https://kardashev-calc.s3.amazonaws.com/music.mp3";
 
 function App() {
 

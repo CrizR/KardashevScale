@@ -38,8 +38,6 @@ export default class LifeScale extends React.Component {
 
     constructor(props) {
         super(props);
-        const localStoragePage = JSON.parse(localStorage.getItem('currentPage'));
-        // this.state = {currentPage: localStoragePage === undefined ?  6 : localStoragePage.currentPage};
         this.state = {currentPage: 7};
     }
 

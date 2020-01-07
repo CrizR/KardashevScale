@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import Link from "@material-ui/core/Link";
 import * as PropTypes from "prop-types";
 
 export default class TypeIII extends Component {
