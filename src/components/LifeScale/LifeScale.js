@@ -103,9 +103,7 @@ export default class LifeScale extends React.Component {
                                     The Kardashev scale is a method of measuring a civilization's level of technological
                                     advancement
                                     based on the amount of energy they are able to use. The measure was
-                                    proposed by Soviet astronomer Nikolai Kardashev in 1964. The above formula was
-                                    proposed by Carl Sagan to allow for
-                                    intermediate values between civilization types. Scroll up to see the different
+                                    proposed by Soviet astronomer Nikolai Kardashev in 1964. Scroll up to see the different
                                     civilization levels or use the
                                     <Link style={{color: 'purple !important'}} href={'/calculator'}> calculator</Link>.
                                 </p>
