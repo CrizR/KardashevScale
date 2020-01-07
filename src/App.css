@@ -123,7 +123,7 @@ video {
 
 
 .civStyle .MuiTypography-colorPrimary {
-    color: mediumpurple !important;
+    color: red !important;
     font-size: calc(7px + 1vmin);
 }
 
@@ -134,7 +134,7 @@ video {
 }
 
 .MuiTypography-colorPrimary {
-    color: purple !important;
+    color: red !important;
     font-size: calc(7px + 1vmin);
 }
 

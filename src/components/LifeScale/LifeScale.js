@@ -18,6 +18,8 @@ import TypeI from "../MicroMaster/Type-I";
 
 import Link from "@material-ui/core/Link";
 import Type6 from "../CivTypes/Type6";
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 const planets = 'http://kardashev-calc.s3.amazonaws.com/star.mp4';
 const multiverse = 'https://kardashev-calc.s3.amazonaws.com/multiverse.mp4';
@@ -29,6 +31,7 @@ const time = 'http://kardashev-calc.s3.amazonaws.com//time.mp4';
 const skyline = 'http://kardashev-calc.s3.amazonaws.com/skylinep.mp4';
 const star = 'http://kardashev-calc.s3.amazonaws.com/star.mp4';
 const base = 'http://kardashev-calc.s3.amazonaws.com/base.mp4';
+
 
 export default class LifeScale extends React.Component {
 
@@ -93,7 +96,8 @@ export default class LifeScale extends React.Component {
 
                         <div className="component component-7">
                             <video src={base} autoPlay={true} muted={true} loop={true}/>
-                            <div className={"civStyle"}>
+                            <div style={{marginTop: '100px'}} className={"civStyle"}>
+                                <ArrowUpwardIcon fontSize={'large'}/>
                                 <h1>Kardashev Scale</h1>
                                 <p>
                                     The Kardashev scale is a method of measuring a civilization's level of technological
@@ -105,7 +109,9 @@ export default class LifeScale extends React.Component {
                                     civilization levels or use the
                                     <Link style={{color: 'purple !important'}} href={'/calculator'}> calculator</Link>.
                                 </p>
+                            </div>
 
+                            <div className={"civStyle"}>
                                 <h1>Micro-Dimensional Mastery</h1>
                                 <p>John D. Barrow, going by the fact that humans
                                     have found it more cost-effective to extend any abilities to manipulate their
@@ -127,7 +133,9 @@ export default class LifeScale extends React.Component {
                                     <Link
                                         href='https://en.wikipedia.org/wiki/Kardashev_scale'><strong>Source</strong></Link>
                                 </div>
+                                <ArrowDownwardIcon fontSize={'large'}/>
                             </div>
+
                         </div>
 
 
