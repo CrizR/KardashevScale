@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import * as PropTypes from "prop-types";
+import Link from "@material-ui/core/Link";
 
 export default class Type1 extends Component {
     render() {
@@ -19,8 +20,9 @@ export default class Type1 extends Component {
                 <li>In balance with nature and likely has the capacity to manipulate weather, natural disasters, the environment, and
                     more
                 </li>
-                <li>Nuclear Fusion and the usage of antimatter is a probability
+                <li>Nuclear fusion or the usage of antimatter is a probability
                 </li>
+                <li><Link href={"https://www.youtube.com/watch?v=HEpNiOM6lto"}>Becoming Type 1</Link></li>
             </ul>
         </div>;
     }
