@@ -4,6 +4,7 @@ import Calculator from "./components/Calculator/Calculator";
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import {Switch} from "react-bootstrap";
 import LifeScale from "./components/LifeScale/LifeScale";
+import mp3_file from "./music.mp3"
 
 
 function App() {
@@ -12,8 +13,7 @@ function App() {
         <>
             <audio
                 autoPlay={true}>
-                <source type="audio/mp3"
-                        src={"https://kardashev-calc.s3.amazonaws.com/music.mp3"}/>
+                <source type="audio/mp3" src={mp3_file}/>
             </audio>
             <div className="App">
                 <Router>
