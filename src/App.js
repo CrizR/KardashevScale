@@ -6,20 +6,24 @@ import {Switch} from "react-bootstrap";
 import LifeScale from "./components/LifeScale/LifeScale";
 
 
-const mp3_file = "https://kardashev-calc.s3.amazonaws.com/music.mp3";
-
 function App() {
 
     return (
-        <div className="App">
-            <audio src={mp3_file} loop autoPlay/>
-            <Router>
-                <Switch>
-                    <Route path="/calculator" exact component={Calculator}/>
-                    <Route path="/" exact component={LifeScale}/>
-                </Switch>
-            </Router>
-        </div>
+        <>
+            <audio
+                autoPlay={true}>
+                <source type="audio/mp3"
+                        src={"https://kardashev-calc.s3.amazonaws.com/music.mp3"}/>
+            </audio>
+            <div className="App">
+                <Router>
+                    <Switch>
+                        <Route path="/calculator" exact component={Calculator}/>
+                        <Route path="/" exact component={LifeScale}/>
+                    </Switch>
+                </Router>
+            </div>
+        </>
     );
 }
 
