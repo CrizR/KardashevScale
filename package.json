@@ -20,7 +20,7 @@
     "react-mathjax2": "0.0.2",
     "react-number-format": "^4.3.1",
     "react-page-scroller": "^2.0.2-beta",
-    "react-scripts": "3.2.0",
+    "react-scripts": "5.0.1",
     "react-text-mask": "^5.4.3",
     "react-router-dom": "latest",
     "video-react": "^0.14.1"
