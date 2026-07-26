@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { PerformanceMonitor } from '@react-three/drei';
 import { Bloom, EffectComposer, Noise, SMAA, Vignette } from '@react-three/postprocessing';
-import { PRODUCTION_SCENES } from '../../experience/ProductionScenes';
+import { CGI_SCENES } from '../../experience/CgiScenes';
 import { detectQualityTier, getQualityProfile } from '../../experience/quality';
 import { SCALE_SECTIONS, SECTION_SPACING } from './scaleConfig';
 
@@ -66,7 +66,7 @@ const DESKTOP_OFFSETS = {
 function ActiveScene({ progress, mobile, quality, onSceneError }) {
   const index = Math.max(0, Math.min(SCALE_SECTIONS.length - 1, Math.round(progress)));
   const section = SCALE_SECTIONS[index];
-  const Scene = PRODUCTION_SCENES[section.scene];
+  const Scene = CGI_SCENES[section.scene];
   const [x, y] = mobile ? [0, 0] : (DESKTOP_OFFSETS[section.scene] || [2, 0]);
   return (
     <group position={[x, y, -index * SECTION_SPACING]} scale={mobile ? 0.9 : 1}>
@@ -107,7 +107,7 @@ export default function ScaleWorld({ progress, pointer, reducedMotion, onReady, 
       onCreated={({ gl }) => {
         gl.outputColorSpace = THREE.SRGBColorSpace;
         gl.toneMapping = THREE.ACESFilmicToneMapping;
-        gl.toneMappingExposure = 1.04;
+        gl.toneMappingExposure = 1.06;
         gl.info.autoReset = true;
         onReady?.();
         gl.domElement.addEventListener('webglcontextlost', (event) => { event.preventDefault(); lowerQuality(); onError?.(); }, { once: true });
@@ -120,10 +120,10 @@ export default function ScaleWorld({ progress, pointer, reducedMotion, onReady, 
       <CameraRig progress={progress} pointer={pointer} reducedMotion={reducedMotion} mobile={mobile} />
       <ActiveScene progress={progress} mobile={mobile} quality={quality} onSceneError={() => { lowerQuality(); onError?.(); }} />
       <EffectComposer multisampling={quality.multisampling} enableNormalPass={false}>
-        <Bloom intensity={quality.bloom} luminanceThreshold={0.86} luminanceSmoothing={0.15} mipmapBlur />
+        <Bloom intensity={quality.bloom} luminanceThreshold={0.84} luminanceSmoothing={0.16} mipmapBlur />
         {quality.multisampling === 0 && <SMAA />}
-        {!mobile && <Noise opacity={0.0025} />}
-        <Vignette offset={0.28} darkness={0.38} />
+        {!mobile && <Noise opacity={0.0022} />}
+        <Vignette offset={0.28} darkness={0.36} />
       </EffectComposer>
     </Canvas>
   );
