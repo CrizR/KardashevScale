@@ -9,9 +9,9 @@ export default function TypeIII() {
         A Type III-minus civilization controls molecules and chemical bonds, designing matter by deciding how atoms connect.
       </p>
       <ul>
-        <li>Builds medicines and catalysts to fit biological targets with extreme precision</li>
-        <li>Creates self-assembling materials with programmable strength, conductivity, color, or repair</li>
-        <li>Uses molecular machines to perform chemistry one controlled reaction at a time</li>
+        <li>It builds medicines and catalysts to fit biological targets with extreme precision.</li>
+        <li>It creates self-assembling materials with programmable strength, conductivity, color, or repair.</li>
+        <li>It uses molecular machines to perform chemistry one controlled reaction at a time.</li>
       </ul>
     </div>
   );

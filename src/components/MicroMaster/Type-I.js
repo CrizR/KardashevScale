@@ -9,9 +9,9 @@ export default function TypeI() {
         A Type I-minus civilization controls matter at the scale of bodies, tools, buildings, and landscapes.
       </p>
       <ul>
-        <li>Turns stone, metal, glass, and composites into cities, bridges, ships, and launch systems</li>
-        <li>Uses mining, metallurgy, machining, and robotics to reshape its environment</li>
-        <li>Creates machines far stronger, faster, and more precise than unaided biology</li>
+        <li>It turns stone, metal, glass, and composites into cities, bridges, ships, and launch systems.</li>
+        <li>It uses mining, metallurgy, machining, and robotics to reshape its environment.</li>
+        <li>It creates machines far stronger, faster, and more precise than unaided biology.</li>
       </ul>
     </div>
   );

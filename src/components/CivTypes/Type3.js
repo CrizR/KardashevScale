@@ -10,9 +10,9 @@ export default function Type3({ tier = 3, showTier = false }) {
         A Type III civilization commands energy on the scale of an entire galaxy. Because light-speed delays still apply, it would be a distributed network of civilizations and machines rather than one centrally controlled empire.
       </p>
       <ul>
-        <li>Turns billions of stellar systems into linked centers of industry, life, and computation</li>
-        <li>Uses stellar engines, compact objects, and the central supermassive black hole as infrastructure</li>
-        <li>Becomes almost impossible to erase: no single planetary, stellar, or regional catastrophe can end it</li>
+        <li>It turns billions of stellar systems into linked centers of industry, life, and computation.</li>
+        <li>It uses stellar engines, compact objects, and the central supermassive black hole as infrastructure.</li>
+        <li>It becomes almost impossible to erase because no single planetary, stellar, or regional catastrophe can end it.</li>
       </ul>
     </div>
   );

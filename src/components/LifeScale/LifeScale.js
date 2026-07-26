@@ -77,7 +77,7 @@ function Introduction() {
       <div className="civStyle intro-copy micro-copy">
         <h1>Micro-Dimensional Mastery</h1>
         <p>
-          John D. Barrow reversed the classification downward, measuring mastery over progressively smaller structures—from human-scale construction to biology, atoms, nuclei, particles, and ultimately space-time itself.
+          John D. Barrow reversed the classification downward. His version measures mastery over progressively smaller structures, from human-scale construction to biology, atoms, nuclei, particles, and ultimately spacetime itself.
         </p>
         <a className="source-link" href="https://en.wikipedia.org/wiki/Kardashev_scale" target="_blank" rel="noreferrer">Source</a>
       </div>
@@ -111,7 +111,7 @@ function LoadingIndicator({ failed, onRetry }) {
   return (
     <div className={`section-loader${failed ? ' has-error' : ''}`} role="status" aria-live="polite">
       {!failed && <span className="media-spinner" aria-hidden="true" />}
-      <strong>{failed ? 'Video failed to load' : 'Loading cinematic media'}</strong>
+      <strong>{failed ? 'The video failed to load.' : 'The cinematic media is loading.'}</strong>
       {failed && (
         <button type="button" onClick={onRetry}>Retry video</button>
       )}
@@ -431,11 +431,11 @@ export default function LifeScale() {
       {showEntry && (
         <div className="entry-gate" role="dialog" aria-modal="true" aria-labelledby="entry-title">
           <div className="entry-gate-content">
-            <p className="entry-kicker">Interactive cosmic scale</p>
+            <p className="entry-kicker">Explore an interactive cosmic scale.</p>
             <h1 id="entry-title">Enter the Kardashev Scale</h1>
             <div className="entry-load-state" aria-live="polite">
               {!activeReady && !activeFailed && <span className="media-spinner" aria-hidden="true" />}
-              <span>{audioError || (activeFailed ? 'The opening video could not load. You can still enter.' : activeReady ? `${readyCount} of ${SECTIONS.length} videos ready` : 'Preparing the opening sequence — you can enter now')}</span>
+              <span>{audioError || (activeFailed ? 'The opening video could not load. You can still enter.' : activeReady ? `${readyCount} of ${SECTIONS.length} videos are ready.` : 'The opening sequence is still preparing, but you can enter now.')}</span>
             </div>
             <div className="entry-actions">
               <button type="button" className="entry-primary" onClick={() => chooseSound('on')} disabled={soundStarting}>
