@@ -95,10 +95,13 @@ function BackgroundVideo({ src, active, ready, preload, videoRef, onReady, onErr
       muted
       loop
       playsInline
+      autoPlay={active}
       preload={preload}
       disablePictureInPicture
       aria-hidden="true"
+      onLoadedData={onReady}
       onCanPlay={onReady}
+      onPlaying={onReady}
       onError={onError}
     />
   );
@@ -109,9 +112,7 @@ function LoadingIndicator({ failed, onRetry }) {
     <div className={`section-loader${failed ? ' has-error' : ''}`} role="status" aria-live="polite">
       {!failed && <span className="media-spinner" aria-hidden="true" />}
       <strong>{failed ? 'Video failed to load' : 'Loading cinematic media'}</strong>
-      {failed && (
-        <button type="button" onClick={onRetry}>Retry video</button>
-      )}
+      {failed && <button type="button" onClick={onRetry}>Retry video</button>}
     </div>
   );
 }
@@ -142,11 +143,11 @@ export default function LifeScale() {
   const activeFailed = failedVideos.has(currentPage);
   const showEntry = soundPreference === null;
 
-  const preloadOrder = useMemo(() => {
-    return SECTIONS
+  const preloadOrder = useMemo(() => (
+    SECTIONS
       .map((_, index) => index)
-      .sort((a, b) => Math.abs(a - currentPage) - Math.abs(b - currentPage));
-  }, [currentPage]);
+      .sort((a, b) => Math.abs(a - currentPage) - Math.abs(b - currentPage))
+  ), [currentPage]);
 
   const markVideoReady = useCallback((index) => {
     setReadyVideos((previous) => {
@@ -171,6 +172,25 @@ export default function LifeScale() {
       return next;
     });
   }, []);
+
+  const startVideo = useCallback((index) => {
+    const video = videoRefs.current[index];
+    if (!video) return;
+
+    video.muted = true;
+    video.preload = 'auto';
+
+    if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+      markVideoReady(index);
+    }
+
+    if (video.networkState === HTMLMediaElement.NETWORK_EMPTY) {
+      video.load();
+    }
+
+    const playAttempt = video.play();
+    if (playAttempt?.catch) playAttempt.catch(() => undefined);
+  }, [markVideoReady]);
 
   const goToPage = useCallback((nextPage) => {
     const next = clampPage(nextPage);
@@ -206,6 +226,8 @@ export default function LifeScale() {
     if (video) {
       video.preload = 'auto';
       video.load();
+      const playAttempt = video.play();
+      if (playAttempt?.catch) playAttempt.catch(() => undefined);
     }
   }, []);
 
@@ -216,11 +238,9 @@ export default function LifeScale() {
     }
   }, [currentPage]);
 
-  useEffect(() => {
-    return () => {
-      window.clearTimeout(transitionTimer.current);
-      preloadTimers.current.forEach((timer) => window.clearTimeout(timer));
-    };
+  useEffect(() => () => {
+    window.clearTimeout(transitionTimer.current);
+    preloadTimers.current.forEach((timer) => window.clearTimeout(timer));
   }, []);
 
   useEffect(() => {
@@ -240,7 +260,7 @@ export default function LifeScale() {
   useEffect(() => {
     warmVideos.forEach((index) => {
       const video = videoRefs.current[index];
-      if (!video || video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) return;
+      if (!video || video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) return;
       video.preload = 'auto';
       if (video.networkState === HTMLMediaElement.NETWORK_EMPTY) video.load();
     });
@@ -249,14 +269,18 @@ export default function LifeScale() {
   useEffect(() => {
     videoRefs.current.forEach((video, index) => {
       if (!video) return;
-      if (index === currentPage && readyVideos.has(index)) {
-        const playAttempt = video.play();
-        if (playAttempt?.catch) playAttempt.catch(() => undefined);
+      if (index === currentPage) {
+        startVideo(index);
       } else {
         video.pause();
       }
     });
-  }, [currentPage, readyVideos]);
+  }, [currentPage, startVideo]);
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => startVideo(currentPage));
+    return () => window.cancelAnimationFrame(frame);
+  }, [currentPage, startVideo]);
 
   useEffect(() => {
     if (soundPreference !== 'on') return;
@@ -278,13 +302,13 @@ export default function LifeScale() {
         return;
       }
 
-      if (activeReady) activeVideo?.play().catch(() => undefined);
+      startVideo(currentPage);
       if (soundEnabled) audioRef.current?.play().catch(() => setSoundEnabled(false));
     };
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
     return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
-  }, [activeReady, currentPage, soundEnabled]);
+  }, [currentPage, soundEnabled, startVideo]);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -358,10 +382,11 @@ export default function LifeScale() {
   };
 
   const chooseSound = async (preference) => {
-    const audio = audioRef.current;
     setSoundPreference(preference);
     window.localStorage.setItem(SOUND_PREFERENCE_KEY, preference);
+    startVideo(currentPage);
 
+    const audio = audioRef.current;
     if (preference === 'off' || !audio) {
       audio?.pause();
       setSoundEnabled(false);
@@ -378,8 +403,7 @@ export default function LifeScale() {
   };
 
   const toggleSound = async () => {
-    const nextPreference = soundEnabled ? 'off' : 'on';
-    await chooseSound(nextPreference);
+    await chooseSound(soundEnabled ? 'off' : 'on');
   };
 
   return (
@@ -393,11 +417,17 @@ export default function LifeScale() {
             <h1 id="entry-title">Enter the Kardashev Scale</h1>
             <div className="entry-load-state" aria-live="polite">
               {!activeReady && !activeFailed && <span className="media-spinner" aria-hidden="true" />}
-              <span>{activeFailed ? 'The opening video could not load.' : activeReady ? `${readyCount} of ${SECTIONS.length} videos ready` : 'Preparing the opening sequence'}</span>
+              <span>
+                {activeFailed
+                  ? 'The opening video could not load. You can still enter.'
+                  : activeReady
+                    ? `${readyCount} of ${SECTIONS.length} videos ready`
+                    : 'Opening video is buffering — you can enter now'}
+              </span>
             </div>
             <div className="entry-actions">
-              <button type="button" className="entry-primary" onClick={() => chooseSound('on')} disabled={!activeReady && !activeFailed}>Enter with sound</button>
-              <button type="button" onClick={() => chooseSound('off')} disabled={!activeReady && !activeFailed}>Continue muted</button>
+              <button type="button" className="entry-primary" onClick={() => chooseSound('on')}>Enter with sound</button>
+              <button type="button" onClick={() => chooseSound('off')}>Continue muted</button>
             </div>
           </div>
         </div>
@@ -472,7 +502,7 @@ export default function LifeScale() {
                   preload={warmVideos.has(index) ? 'auto' : 'metadata'}
                   videoRef={(element) => {
                     videoRefs.current[index] = element;
-                    if (element?.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) markVideoReady(index);
+                    if (element?.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) markVideoReady(index);
                   }}
                   onReady={() => markVideoReady(index)}
                   onError={() => markVideoFailed(index)}
