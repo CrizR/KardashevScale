@@ -29,11 +29,16 @@ jobs:
         run: npm install --no-audit --no-fund
 
       - name: Build production bundle
+        id: production-build
         shell: bash
         run: |
-          if ! npm run build > build.log 2>&1; then
-            echo "Production build failed:"
-            tail -80 build.log
-            exit 1
-          fi
+          npm run build > build.log 2>&1
           tail -20 build.log
+
+      - name: Upload failed build log
+        if: failure() && steps.production-build.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-build-log
+          path: build.log
+          retention-days: 1
