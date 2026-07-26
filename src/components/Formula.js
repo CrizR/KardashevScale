@@ -1,10 +1,9 @@
-import {Context, Node} from "react-mathjax2";
-import React from "react";
+import React from 'react';
 
-export default function Formula(props) {
-    return (
-        <Context>
-            <Node inline>{props.tex}</Node>
-        </Context>
-    );
+export default function Formula({ tex }) {
+  return (
+    <div className="formula" role="math" aria-label="K equals log base ten of power minus six, divided by ten">
+      {tex}
+    </div>
+  );
 }

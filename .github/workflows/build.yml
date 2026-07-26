@@ -1,0 +1,44 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - master
+      - agent/**
+  pull_request:
+    branches:
+      - master
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Build production bundle
+        id: production-build
+        shell: bash
+        run: |
+          npm run build > build.log 2>&1
+          tail -20 build.log
+
+      - name: Upload failed build log
+        if: failure() && steps.production-build.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-build-log
+          path: build.log
+          retention-days: 1

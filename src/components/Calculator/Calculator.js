@@ -1,96 +1,74 @@
-import {makeStyles} from "@material-ui/core";
-import NumberFormat from "react-number-format";
-import PropTypes from "prop-types";
-import React from "react";
-import CalcContent from "./CalcContent";
-import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
+import React, { useMemo, useState } from 'react';
+import CalcContent from './CalcContent';
 
-const useStyles = makeStyles(theme => ({
-    root: {
-        '& > *': {
-            margin: theme.spacing(3),
-            width: '80%',
-        },
-    },
-    floatingLabelFocusStyle: {
-        color: "white",
-        fontSize: '14px'
-    },
-    multilineColor: {
-        color: 'white',
-        fontSize: '16px'
+const MIN_EXPONENT = 6;
+const MAX_EXPONENT = 60;
+
+export default function Calculator() {
+  const [exponent, setExponent] = useState(13.3);
+  const tier = useMemo(() => (exponent - 6) / 10, [exponent]);
+
+  const updateExponent = (event) => {
+    const value = Number(event.target.value);
+    if (Number.isFinite(value)) {
+      setExponent(Math.min(MAX_EXPONENT, Math.max(MIN_EXPONENT, value)));
     }
-}));
+  };
 
+  return (
+    <main className="calculator-page">
+      <nav className="calculator-nav">
+        <a href="/">← Explore the scale</a>
+      </nav>
 
-function NumberFormatCustom(props) {
-    const {inputRef, onChange, ...other} = props;
+      <section className="calculator-hero">
+        <p className="eyebrow">Sagan interpolation</p>
+        <h1>Kardashev Calculator</h1>
+        <p className="calculator-intro">
+          Choose the exponent in 10<sup>x</sup> watts. The scale value uses K = (log<sub>10</sub>P − 6) / 10.
+        </p>
 
-    return (
-        <NumberFormat
-            {...other}
-            getInputRef={inputRef}
-            onValueChange={values => {
-                onChange({
-                    target: {
-                        value: values === null ? 0 : values.value,
-                    },
-                });
-            }}
-            isNumericString={false}
-            prefix="10^"
-            suffix=" W"
-        />
-    );
-}
+        <div className="calculator-card">
+          <div className="calculator-value">
+            <span>Power usage</span>
+            <strong>10<sup>{exponent.toFixed(1)}</sup> W</strong>
+          </div>
 
-NumberFormatCustom.propTypes = {
-    inputRef: PropTypes.func.isRequired,
-    onChange: PropTypes.func.isRequired,
-};
+          <label className="slider-label" htmlFor="energy-exponent">
+            Energy exponent
+            <input
+              id="energy-exponent"
+              type="number"
+              min={MIN_EXPONENT}
+              max={MAX_EXPONENT}
+              step="0.1"
+              value={exponent}
+              onChange={updateExponent}
+              inputMode="decimal"
+            />
+          </label>
 
+          <input
+            className="energy-slider"
+            type="range"
+            min={MIN_EXPONENT}
+            max={MAX_EXPONENT}
+            step="0.1"
+            value={exponent}
+            onChange={updateExponent}
+            aria-label="Energy exponent"
+          />
 
-export default function Calculator(props) {
+          <div className="tier-readout">
+            <span>Kardashev rating</span>
+            <strong>{tier.toFixed(3)}</strong>
+          </div>
+        </div>
+      </section>
 
-    const classes = useStyles();
-    const [values, setValues] = React.useState({
-        numberformat: '1',
-    });
-
-    const handleChange = name => event => {
-        setValues({
-            ...values,
-            [name]: event.target.value,
-        });
-    };
-
-    function RenderContent() {
-        const krating = (Math.log10(10 ** values.numberformat) - 6) / 10;
-        console.log(krating);
-        return <CalcContent tier={krating}/>
-    }
-
-    return (
-        <header className="App-header">
-            <h2 style={{marginTop: '40px'}}>Kardashev Scale</h2>
-            <form className={classes.root}>
-                <TextField
-                    color='secondary'
-                    label="Energy Usage"
-                    value={values.numberformat}
-                    onChange={handleChange('numberformat')}
-                    id="formatted-numberformat-input"
-                    InputLabelProps={{
-                        className: classes.floatingLabelFocusStyle,
-                    }}
-                    InputProps={{
-                        inputComponent: NumberFormatCustom,
-                        className: classes.multilineColor,
-                    }}
-                />
-            </form>
-            <RenderContent/>
-        </header>
-    )
+      <section className="calculator-result">
+        <CalcContent tier={tier} />
+      </section>
+    </main>
+  );
 }
