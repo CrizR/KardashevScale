@@ -92,13 +92,16 @@ function BackgroundVideo({ src, active, ready, preload, videoRef, onReady, onErr
       ref={videoRef}
       className={`section-video${active ? ' is-active' : ''}${ready ? ' is-ready' : ''}`}
       src={src}
+      autoPlay={active}
       muted
       loop
       playsInline
       preload={preload}
       disablePictureInPicture
       aria-hidden="true"
+      onLoadedData={onReady}
       onCanPlay={onReady}
+      onPlaying={onReady}
       onError={onError}
     />
   );
@@ -240,7 +243,7 @@ export default function LifeScale() {
   useEffect(() => {
     warmVideos.forEach((index) => {
       const video = videoRefs.current[index];
-      if (!video || video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) return;
+      if (!video || video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) return;
       video.preload = 'auto';
       if (video.networkState === HTMLMediaElement.NETWORK_EMPTY) video.load();
     });
@@ -249,14 +252,18 @@ export default function LifeScale() {
   useEffect(() => {
     videoRefs.current.forEach((video, index) => {
       if (!video) return;
-      if (index === currentPage && readyVideos.has(index)) {
+      if (index === currentPage) {
         const playAttempt = video.play();
-        if (playAttempt?.catch) playAttempt.catch(() => undefined);
+        if (playAttempt?.then) {
+          playAttempt
+            .then(() => markVideoReady(index))
+            .catch(() => undefined);
+        }
       } else {
         video.pause();
       }
     });
-  }, [currentPage, readyVideos]);
+  }, [currentPage, markVideoReady]);
 
   useEffect(() => {
     if (soundPreference !== 'on') return;
@@ -278,13 +285,15 @@ export default function LifeScale() {
         return;
       }
 
-      if (activeReady) activeVideo?.play().catch(() => undefined);
+      activeVideo?.play()
+        .then(() => markVideoReady(currentPage))
+        .catch(() => undefined);
       if (soundEnabled) audioRef.current?.play().catch(() => setSoundEnabled(false));
     };
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
     return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
-  }, [activeReady, currentPage, soundEnabled]);
+  }, [currentPage, markVideoReady, soundEnabled]);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -393,11 +402,11 @@ export default function LifeScale() {
             <h1 id="entry-title">Enter the Kardashev Scale</h1>
             <div className="entry-load-state" aria-live="polite">
               {!activeReady && !activeFailed && <span className="media-spinner" aria-hidden="true" />}
-              <span>{activeFailed ? 'The opening video could not load.' : activeReady ? `${readyCount} of ${SECTIONS.length} videos ready` : 'Preparing the opening sequence'}</span>
+              <span>{activeFailed ? 'The opening video could not load. You can still enter.' : activeReady ? `${readyCount} of ${SECTIONS.length} videos ready` : 'Preparing the opening sequence — you can enter now'}</span>
             </div>
             <div className="entry-actions">
-              <button type="button" className="entry-primary" onClick={() => chooseSound('on')} disabled={!activeReady && !activeFailed}>Enter with sound</button>
-              <button type="button" onClick={() => chooseSound('off')} disabled={!activeReady && !activeFailed}>Continue muted</button>
+              <button type="button" className="entry-primary" onClick={() => chooseSound('on')}>Enter with sound</button>
+              <button type="button" onClick={() => chooseSound('off')}>Continue muted</button>
             </div>
           </div>
         </div>
@@ -472,7 +481,7 @@ export default function LifeScale() {
                   preload={warmVideos.has(index) ? 'auto' : 'metadata'}
                   videoRef={(element) => {
                     videoRefs.current[index] = element;
-                    if (element?.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) markVideoReady(index);
+                    if (element?.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) markVideoReady(index);
                   }}
                   onReady={() => markVideoReady(index)}
                   onError={() => markVideoFailed(index)}
