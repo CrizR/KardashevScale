@@ -1,0 +1,27 @@
+name: Probe Pixabay audio
+
+on:
+  push:
+    branches:
+      - agent/fix-entry-video-deadlock
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Inspect official Pixabay page
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -L --fail --silent --show-error \
+            -A 'Mozilla/5.0' \
+            'https://pixabay.com/music/ambient-futuristic-ambience-nowhere-175592/' \
+            -o page.html
+          echo '--- direct MP3 candidates ---'
+          grep -oE 'https://[^"'"'"' ]+\.mp3[^"'"'"' <]*' page.html | sed 's/&amp;/\&/g' | sort -u || true
+          echo '--- audio-related snippets ---'
+          grep -oE '.{0,180}(audio|mp3|downloadUrl|download_url|audioUrl|audio_url).{0,260}' page.html | head -80 || true
