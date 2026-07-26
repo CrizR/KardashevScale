@@ -10,9 +10,9 @@ export default function Type0({ tier = 0, showTier = false }) {
         A Type 0 civilization cannot yet command its planet&apos;s full energy budget, but it has begun linking billions of people, machines, sensors, and spacecraft into one civilization-scale system.
       </p>
       <ul>
-        <li>Global networks can watch weather, oceans, disease, and near-Earth space almost in real time</li>
-        <li>AI, robotics, gene editing, and fusion research are its first tools for redesigning life, matter, and energy</li>
-        <li>Its defining challenge is coordination: planetary power without planetary control</li>
+        <li>Its global networks can monitor weather, oceans, disease, and near-Earth space almost in real time.</li>
+        <li>AI, robotics, gene editing, and fusion research give it its first tools for redesigning life, matter, and energy.</li>
+        <li>Its defining challenge is coordination because it has planetary power without planetary control.</li>
       </ul>
     </div>
   );

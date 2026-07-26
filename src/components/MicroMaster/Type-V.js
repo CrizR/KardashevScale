@@ -9,9 +9,9 @@ export default function TypeV() {
         A Type V-minus civilization engineers atomic nuclei and the protons and neutrons inside them rather than merely rearranging electrons and chemical bonds.
       </p>
       <ul>
-        <li>Creates custom isotopes and elements with precisely chosen nuclear properties</li>
-        <li>Controls fusion, fission, and nuclear decay as deliberate manufacturing processes</li>
-        <li>Stores energy in nuclear states and explores exotic nuclei that rarely or never appear in nature</li>
+        <li>It creates custom isotopes and elements with precisely chosen nuclear properties.</li>
+        <li>It controls fusion, fission, and nuclear decay as deliberate manufacturing processes.</li>
+        <li>It stores energy in nuclear states and explores exotic nuclei that rarely or never appear in nature.</li>
       </ul>
     </div>
   );
