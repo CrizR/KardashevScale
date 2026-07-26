@@ -63,7 +63,7 @@ function BackgroundVideo({ src, shouldLoad, active, videoRef }) {
 export default function LifeScale() {
   const audioRef = useRef(null);
   const videoRefs = useRef([]);
-  const touchStart = useRef(null);
+  const touchState = useRef(null);
   const wheelLocked = useRef(false);
   const transitionTimer = useRef(null);
   const [currentPage, setCurrentPage] = useState(INTRO_INDEX);
@@ -158,29 +158,43 @@ export default function LifeScale() {
   };
 
   const handleTouchStart = (event) => {
-    touchStart.current = {
-      y: event.touches[0]?.clientY ?? null,
+    const y = event.touches[0]?.clientY ?? null;
+    touchState.current = {
+      startY: y,
+      lastY: y,
       content: event.target.closest?.('.section-content') ?? null,
+      scrolledContent: false,
     };
   };
 
-  const handleTouchEnd = (event) => {
-    if (touchStart.current?.y === null || touchStart.current?.y === undefined) return;
+  const handleTouchMove = (event) => {
+    const state = touchState.current;
+    const y = event.touches[0]?.clientY ?? null;
+    if (!state || y === null || state.lastY === null) return;
 
-    const endY = event.changedTouches[0]?.clientY ?? touchStart.current.y;
-    const delta = touchStart.current.y - endY;
-    const content = touchStart.current.content;
-    touchStart.current = null;
-
-    if (Math.abs(delta) < 46) return;
-
+    const content = state.content;
     if (content && content.scrollHeight > content.clientHeight + 2) {
+      const previousScrollTop = content.scrollTop;
+      const delta = state.lastY - y;
       const maxScroll = content.scrollHeight - content.clientHeight;
-      const canScrollDown = delta > 0 && content.scrollTop < maxScroll - 2;
-      const canScrollUp = delta < 0 && content.scrollTop > 2;
-      if (canScrollDown || canScrollUp) return;
+      content.scrollTop = Math.max(0, Math.min(maxScroll, previousScrollTop + delta));
+      if (Math.abs(content.scrollTop - previousScrollTop) > 0.5) {
+        state.scrolledContent = true;
+      }
     }
 
+    state.lastY = y;
+  };
+
+  const handleTouchEnd = (event) => {
+    const state = touchState.current;
+    if (!state || state.startY === null) return;
+
+    const endY = event.changedTouches[0]?.clientY ?? state.startY;
+    const delta = state.startY - endY;
+    touchState.current = null;
+
+    if (state.scrolledContent || Math.abs(delta) < 46) return;
     move(delta > 0 ? 1 : -1);
   };
 
@@ -225,6 +239,7 @@ export default function LifeScale() {
         className="cinematic-viewport"
         onWheel={handleWheel}
         onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
         <div
