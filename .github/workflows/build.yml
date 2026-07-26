@@ -29,4 +29,11 @@ jobs:
         run: npm install --no-audit --no-fund
 
       - name: Build production bundle
-        run: npm run build
+        shell: bash
+        run: |
+          if ! npm run build > build.log 2>&1; then
+            echo "Production build failed:"
+            tail -80 build.log
+            exit 1
+          fi
+          tail -20 build.log
