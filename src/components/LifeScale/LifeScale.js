@@ -98,7 +98,6 @@ function BackgroundVideo({ src, active, ready, preload, videoRef, onReady, onErr
       preload={preload}
       disablePictureInPicture
       aria-hidden="true"
-      onLoadedData={onReady}
       onCanPlay={onReady}
       onError={onError}
     />
@@ -166,6 +165,7 @@ export default function LifeScale() {
 
   const markVideoFailed = useCallback((index) => {
     setFailedVideos((previous) => {
+      if (previous.has(index)) return previous;
       const next = new Set(previous);
       next.add(index);
       return next;
@@ -214,8 +214,14 @@ export default function LifeScale() {
     if (window.location.search) {
       window.history.replaceState(null, '', `/#${SECTIONS[currentPage].id}`);
     }
-    return () => window.clearTimeout(transitionTimer.current);
   }, [currentPage]);
+
+  useEffect(() => {
+    return () => {
+      window.clearTimeout(transitionTimer.current);
+      preloadTimers.current.forEach((timer) => window.clearTimeout(timer));
+    };
+  }, []);
 
   useEffect(() => {
     preloadTimers.current.forEach((timer) => window.clearTimeout(timer));
