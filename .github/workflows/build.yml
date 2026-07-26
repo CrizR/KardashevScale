@@ -38,7 +38,7 @@ jobs:
           tail -20 build.log
 
       - name: Report official soundtrack URL candidates
-        if: github.ref == 'refs/heads/agent/fix-entry-video-deadlock'
+        if: github.head_ref == 'agent/fix-entry-video-deadlock' || github.ref == 'refs/heads/agent/fix-entry-video-deadlock'
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
