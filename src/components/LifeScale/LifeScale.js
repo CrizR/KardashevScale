@@ -131,6 +131,8 @@ export default function LifeScale() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [soundPreference, setSoundPreference] = useState(getSavedSoundPreference);
   const [soundEnabled, setSoundEnabled] = useState(false);
+  const [soundStarting, setSoundStarting] = useState(false);
+  const [audioError, setAudioError] = useState('');
   const [mapOpen, setMapOpen] = useState(false);
   const [readyVideos, setReadyVideos] = useState(() => new Set());
   const [failedVideos, setFailedVideos] = useState(() => new Set());
@@ -269,10 +271,15 @@ export default function LifeScale() {
     if (soundPreference !== 'on') return;
     const audio = audioRef.current;
     if (!audio) return;
-    audio.volume = 0.72;
+    audio.volume = 0.64;
     const playAttempt = audio.play();
     if (playAttempt?.then) {
-      playAttempt.then(() => setSoundEnabled(true)).catch(() => setSoundEnabled(false));
+      playAttempt
+        .then(() => {
+          setSoundEnabled(true);
+          setAudioError('');
+        })
+        .catch(() => setSoundEnabled(false));
     }
   }, [soundPreference]);
 
@@ -368,21 +375,38 @@ export default function LifeScale() {
 
   const chooseSound = async (preference) => {
     const audio = audioRef.current;
-    setSoundPreference(preference);
-    window.localStorage.setItem(SOUND_PREFERENCE_KEY, preference);
+    setAudioError('');
 
-    if (preference === 'off' || !audio) {
+    if (preference === 'off') {
       audio?.pause();
       setSoundEnabled(false);
+      setSoundPreference('off');
+      window.localStorage.setItem(SOUND_PREFERENCE_KEY, 'off');
       return;
     }
 
+    if (!audio) {
+      setSoundPreference(null);
+      setSoundEnabled(false);
+      setAudioError('The soundtrack is unavailable. Try again after the page finishes loading.');
+      return;
+    }
+
+    setSoundStarting(true);
     try {
-      audio.volume = 0.72;
+      audio.volume = 0.64;
+      if (audio.readyState === HTMLMediaElement.HAVE_NOTHING) audio.load();
       await audio.play();
       setSoundEnabled(true);
+      setSoundPreference('on');
+      window.localStorage.setItem(SOUND_PREFERENCE_KEY, 'on');
     } catch {
       setSoundEnabled(false);
+      setSoundPreference(null);
+      window.localStorage.removeItem(SOUND_PREFERENCE_KEY);
+      setAudioError('Sound could not start. Tap “Enter with sound” again.');
+    } finally {
+      setSoundStarting(false);
     }
   };
 
@@ -393,7 +417,16 @@ export default function LifeScale() {
 
   return (
     <main className={`scale-shell${isTransitioning ? ' is-transitioning' : ''}`}>
-      <audio ref={audioRef} src={music} loop preload="auto" />
+      <audio
+        ref={audioRef}
+        src={music}
+        loop
+        preload="auto"
+        onError={() => {
+          setSoundEnabled(false);
+          setAudioError('The soundtrack failed to load.');
+        }}
+      />
 
       {showEntry && (
         <div className="entry-gate" role="dialog" aria-modal="true" aria-labelledby="entry-title">
@@ -402,11 +435,13 @@ export default function LifeScale() {
             <h1 id="entry-title">Enter the Kardashev Scale</h1>
             <div className="entry-load-state" aria-live="polite">
               {!activeReady && !activeFailed && <span className="media-spinner" aria-hidden="true" />}
-              <span>{activeFailed ? 'The opening video could not load. You can still enter.' : activeReady ? `${readyCount} of ${SECTIONS.length} videos ready` : 'Preparing the opening sequence — you can enter now'}</span>
+              <span>{audioError || (activeFailed ? 'The opening video could not load. You can still enter.' : activeReady ? `${readyCount} of ${SECTIONS.length} videos ready` : 'Preparing the opening sequence — you can enter now')}</span>
             </div>
             <div className="entry-actions">
-              <button type="button" className="entry-primary" onClick={() => chooseSound('on')}>Enter with sound</button>
-              <button type="button" onClick={() => chooseSound('off')}>Continue muted</button>
+              <button type="button" className="entry-primary" onClick={() => chooseSound('on')} disabled={soundStarting}>
+                {soundStarting ? 'Starting sound…' : 'Enter with sound'}
+              </button>
+              <button type="button" onClick={() => chooseSound('off')} disabled={soundStarting}>Continue muted</button>
             </div>
           </div>
         </div>
@@ -418,8 +453,8 @@ export default function LifeScale() {
         <small>{readyCount}/{SECTIONS.length} ready</small>
       </button>
 
-      <button className={`sound-control${soundEnabled ? ' is-on' : ''}`} type="button" onClick={toggleSound}>
-        {soundEnabled ? 'Sound on' : 'Sound off'}
+      <button className={`sound-control${soundEnabled ? ' is-on' : ''}`} type="button" onClick={toggleSound} disabled={soundStarting}>
+        {soundStarting ? 'Starting…' : soundEnabled ? 'Sound on' : 'Sound off'}
       </button>
 
       <div className="scale-controls">
