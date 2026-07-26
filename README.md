@@ -35,3 +35,5 @@ npm run preview
 ## Performance notes
 
 The experience uses native browser scrolling rather than a JavaScript page-scroller dependency. Only the current video and its immediate neighbors receive media URLs, preventing every full-screen background video from downloading and decoding at startup.
+
+<!-- Temporary branch build trigger for soundtrack source verification. -->
