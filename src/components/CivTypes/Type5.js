@@ -1,17 +1,21 @@
-import React, {Component} from "react";
-import * as PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-export default class Type5 extends Component {
-    render() {
-        return <div className={"civStyle"}>
-            <h2>Type V Civilization {this.props.showTier ? - this.props.tier : null}</h2>
-            <h3>Masters of the Multiverse</h3>
-            <p>A multiverse culture, capable of harnessing the energy of multiple universes.</p>
-            <ul>
-                <li>If you are not already a god, you must have met him/her</li>
-            </ul>
-        </div>;
-    }
+export default function Type5({ tier = 5, showTier = false }) {
+  return (
+    <div className="civStyle">
+      <h2>Type V Civilization {showTier ? <span className="rating">K {tier.toFixed(3)}</span> : null}</h2>
+      <h3>Multiverse Masters</h3>
+      <p>A speculative civilization capable of accessing or manipulating energy across multiple universes.</p>
+      <ul>
+        <li>Entirely hypothetical and well beyond the original Kardashev framework</li>
+        <li>Would require control over physics at a scale current science cannot test</li>
+      </ul>
+    </div>
+  );
 }
 
-Type5.propTypes = {tier: PropTypes.number};
+Type5.propTypes = {
+  tier: PropTypes.number,
+  showTier: PropTypes.bool,
+};
