@@ -1,22 +1,22 @@
-import React, {Component} from "react";
-import * as PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-export default class Type4 extends Component {
-    render() {
-        return <div className={"civStyle"}>
-            <h2>Type IV Civilization {this.props.showTier ? - this.props.tier : null}</h2>
-            <h3>Masters of the Universe</h3>
-            <p>A universal civilization, capable of harnessing the energy of the whole universe.</p>
-            <ul>
-                <li>Some form of teleportation or wormhole-esque space travel is a certainty</li>
-                <li>War results in the destruction of galaxies</li>
-                <li>Blackholes or Pulsars are a common energy source for a multitude of different tools</li>
-                <li>Your understanding of life, death, relationships, and time are dramatically affected by time
-                    dilation
-                </li>
-            </ul>
-        </div>;
-    }
+export default function Type4({ tier = 4, showTier = false }) {
+  return (
+    <div className="civStyle">
+      <h2>Type IV Civilization {showTier ? <span className="rating">K {tier.toFixed(3)}</span> : null}</h2>
+      <h3>Universe Masters</h3>
+      <p>A hypothetical civilization capable of using energy on the scale of the observable universe.</p>
+      <ul>
+        <li>Manipulates matter and energy across cosmological distances</li>
+        <li>Uses black holes, relativistic systems, and space-time engineering as infrastructure</li>
+        <li>Operates far beyond the original three Kardashev categories</li>
+      </ul>
+    </div>
+  );
 }
 
-Type4.propTypes = {tier: PropTypes.number};
+Type4.propTypes = {
+  tier: PropTypes.number,
+  showTier: PropTypes.bool,
+};
