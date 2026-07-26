@@ -1,33 +1,25 @@
-import React, {Component} from "react";
-import Link from "@material-ui/core/Link";
-import * as PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-export default class Type3 extends Component {
-    render() {
-        return <div className={"civStyle"}>
-            <h2>Type III Civilization {this.props.showTier ? - this.props.tier : null}</h2>
-            <h3>Galaxy Masters</h3>
-            <p>
-                A civilization in possession of energy at the scale of its own galaxy, with energy consumption at
-                ≈4×1044 erg/sec. Lemarchand stated this as a civilization with access to the power comparable to the
-                luminosity of the entire Milky Way galaxy, about 4×1044 erg/sec (4×1037 watts).
-            </p>
-            <ul>
-                <li>Use and storage of energy from supermassive black holes</li>
-                <li>Use and storage of energy from white holes</li>
-                <li>Capture of energy from gamma-ray bursts</li>
-                <li>Storage of quasar emissions</li>
-                <li>The discovery of alien life at this point is highly likely</li>
-                <li>Planetary and Solar System real estate is likely</li>
-                <li>Space travel at light speed is a certainty</li>
-                <li>Intergalactic war may be commonplace</li>
-                <li>"Mom, how come my brother got a planet for his birthday, but not me?"</li>
-                <li><Link href={"https://www.youtube.com/watch?v=mr7FXvTSYpA&feature=emb_title\n"}>Advanced
-                    Civilizations</Link>
-                </li>
-            </ul>
-        </div>;
-    }
+export default function Type3({ tier = 3, showTier = false }) {
+  return (
+    <div className="civStyle">
+      <h2>Type III Civilization {showTier ? <span className="rating">K {tier.toFixed(3)}</span> : null}</h2>
+      <h3>Galaxy Masters</h3>
+      <p>
+        A Type III civilization commands energy on the scale of an entire galaxy, coordinating infrastructure across billions of stellar systems.
+      </p>
+      <ul>
+        <li>Uses stars, compact objects, and galactic-scale engineering as energy sources</li>
+        <li>Can travel and communicate across interstellar distances at extraordinary scale</li>
+        <li>May reshape the distribution of matter and energy throughout a galaxy</li>
+        <li><a href="https://www.youtube.com/watch?v=mr7FXvTSYpA" target="_blank" rel="noreferrer">Advanced civilizations</a></li>
+      </ul>
+    </div>
+  );
 }
 
-Type3.propTypes = {tier: PropTypes.number};
+Type3.propTypes = {
+  tier: PropTypes.number,
+  showTier: PropTypes.bool,
+};
