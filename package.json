@@ -1,54 +1,25 @@
 {
-  "name": "kcalc",
-  "version": "0.1.0",
+  "name": "kardashev-scale",
+  "version": "1.0.0",
   "private": true,
-  "dependencies": {
-    "@material-ui/core": "^4.8.2",
-    "@material-ui/icons": "^4.5.1",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.4.0",
-    "@testing-library/user-event": "^7.2.1",
-    "algebra.js": "^0.2.6",
-    "jquery": "^3.4.1",
-    "material-ui": "^0.20.2",
-    "prop-types": "latest",
-    "react": "^16.12.0",
-    "react-360": "^1.1.0",
-    "react-bootstrap": "^1.0.0-beta.16",
-    "react-dom": "^16.12.0",
-    "react-mathjax": "^1.0.1",
-    "react-mathjax2": "0.0.2",
-    "react-number-format": "^4.3.1",
-    "react-page-scroller": "^2.0.2-beta",
-    "react-scripts": "3.2.0",
-    "react-text-mask": "^5.4.3",
-    "react-router-dom": "latest",
-    "video-react": "^0.14.1"
+  "type": "module",
+  "engines": {
+    "node": ">=20.19.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "vite",
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "prop-types": "15.8.1",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "react-router-dom": "7.18.1"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.7.4",
-    "@babel/preset-env": "^7.7.7",
-    "@babel/preset-react": "^7.7.4"
+    "@vitejs/plugin-react": "6.0.4",
+    "vite": "8.1.5"
   }
 }
