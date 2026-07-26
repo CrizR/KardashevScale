@@ -1,13 +1,18 @@
-import React, {Component} from "react";
-import * as PropTypes from "prop-types";
+import React from 'react';
 
-export default class TypeVI extends Component {
-    render() {
-        return <div className={"civStyle"}>
-            <h2>Type VI-Minus</h2>
-            <p>Capable of manipulating the most elementary particles of matter (quarks and leptons) to create organized complexity among populations of elementary particles</p>
-        </div>;
-    }
+export default function TypeVI() {
+  return (
+    <div className="civStyle">
+      <h2>Type VI-Minus</h2>
+      <h3>Particle Architects</h3>
+      <p>
+        A Type VI-minus civilization can manipulate elementary particles such as quarks and leptons—the ingredients beneath ordinary atoms and nuclei.
+      </p>
+      <ul>
+        <li>Uses particle accelerators as fabrication tools rather than only as experiments</li>
+        <li>Builds stable forms of exotic matter that do not naturally survive, wherever physics permits</li>
+        <li>Controls matter-energy conversion and organizes information at subnuclear scales</li>
+      </ul>
+    </div>
+  );
 }
-
-TypeVI.propTypes = {tier: PropTypes.number};

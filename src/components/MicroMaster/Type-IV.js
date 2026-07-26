@@ -1,13 +1,18 @@
-import React, {Component} from "react";
-import * as PropTypes from "prop-types";
+import React from 'react';
 
-export default class TypeIV extends Component {
-    render() {
-        return <div className={"civStyle"}>
-            <h2>Type IV-Minus</h2>
-            <p>Capable of manipulating individual atoms, creating nanotechnologies on the atomic scale and creating complex forms of artificial life</p>
-        </div>;
-    }
+export default function TypeIV() {
+  return (
+    <div className="civStyle">
+      <h2>Type IV-Minus</h2>
+      <h3>Atomic Fabricators</h3>
+      <p>
+        A Type IV-minus civilization can position and manipulate individual atoms, making atomically precise manufacturing a routine technology.
+      </p>
+      <ul>
+        <li>Creates nearly defect-free materials and electronics assembled atom by atom</li>
+        <li>Builds nanoscale machines able to sense, repair, manufacture, and reproduce under tight control</li>
+        <li>Constructs artificial cells and materials whose behavior is programmed from the atomic level upward</li>
+      </ul>
+    </div>
+  );
 }
-
-TypeIV.propTypes = {tier: PropTypes.number};

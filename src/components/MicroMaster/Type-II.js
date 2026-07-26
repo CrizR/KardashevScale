@@ -1,14 +1,18 @@
-import React, {Component} from "react";
-import * as PropTypes from "prop-types";
+import React from 'react';
 
-export default class TypeII extends Component {
-    render() {
-        return <div className={"civStyle"}>
-            <h2>Type II-Minus</h2>
-            <p>Capable of manipulating genes and altering the development of living things, transplanting or replacing
-                parts of themselves, reading and engineering their genetic code</p>
-        </div>;
-    }
+export default function TypeII() {
+  return (
+    <div className="civStyle">
+      <h2>Type II-Minus</h2>
+      <h3>Life Programmers</h3>
+      <p>
+        A Type II-minus civilization can read and rewrite genetic information, redirect development, and replace or redesign biological systems.
+      </p>
+      <ul>
+        <li>Engineers organisms to manufacture medicines, materials, food, and fuels</li>
+        <li>Repairs inherited disease and grows replacement tissues or organs</li>
+        <li>Designs synthetic life with biological capabilities that evolution never produced</li>
+      </ul>
+    </div>
+  );
 }
-
-TypeII.propTypes = {tier: PropTypes.number};

@@ -5,15 +5,14 @@ export default function Type1({ tier = 1, showTier = false }) {
   return (
     <div className="civStyle">
       <h2>Type I Civilization {showTier ? <span className="rating">K {tier.toFixed(3)}</span> : null}</h2>
-      <h3>Planet Masters</h3>
+      <h3>A Planet Becomes Infrastructure</h3>
       <p>
-        A Type I civilization can use energy on the scale available to its home planet, including a substantial share of the stellar energy reaching it.
+        A Type I civilization can use energy on the scale naturally available to an entire planet, including a substantial fraction of the sunlight, wind, tides, geothermal heat, and other power flowing through its world.
       </p>
       <ul>
-        <li>Uses planetary-scale renewable or fusion energy systems</li>
-        <li>Can deliberately manage climate, ecosystems, and natural hazards</li>
-        <li>Travels throughout its planetary system routinely</li>
-        <li><a href="https://www.youtube.com/watch?v=HEpNiOM6lto" target="_blank" rel="noreferrer">Becoming Type I</a></li>
+        <li>Runs civilization on planetary renewable, storage, and potentially fusion systems</li>
+        <li>Actively stabilizes climate and ecosystems while reducing asteroid, volcanic, and other global hazards</li>
+        <li>Builds permanent industry across its moons, orbital space, and neighboring planets</li>
       </ul>
     </div>
   );
