@@ -3,10 +3,20 @@ import CalcContent from './CalcContent';
 
 const MIN_EXPONENT = 6;
 const MAX_EXPONENT = 60;
+const TYPE_LABELS = ['Type 0', 'Type I', 'Type II', 'Type III', 'Type IV', 'Type V', 'Type VI'];
+
+function getScaleDestination(tier) {
+  const typeIndex = Math.max(0, Math.min(6, Math.floor(Number.isFinite(tier) ? tier : 0)));
+  return {
+    label: TYPE_LABELS[typeIndex],
+    page: 6 - typeIndex,
+  };
+}
 
 export default function Calculator() {
   const [exponent, setExponent] = useState(13.3);
   const tier = useMemo(() => (exponent - 6) / 10, [exponent]);
+  const destination = useMemo(() => getScaleDestination(tier), [tier]);
 
   const updateExponent = (event) => {
     const value = Number(event.target.value);
@@ -63,6 +73,10 @@ export default function Calculator() {
             <span>Kardashev rating</span>
             <strong>{tier.toFixed(3)}</strong>
           </div>
+
+          <a className="explore-tier-link" href={`/?page=${destination.page}`}>
+            Explore {destination.label} in the scale →
+          </a>
         </div>
       </section>
 
