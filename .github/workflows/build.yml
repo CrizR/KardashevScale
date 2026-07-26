@@ -11,6 +11,8 @@ on:
 
 permissions:
   contents: read
+  pull-requests: write
+  issues: write
 
 jobs:
   build:
@@ -34,6 +36,39 @@ jobs:
         run: |
           npm run build > build.log 2>&1
           tail -20 build.log
+
+      - name: Report official soundtrack URL candidates
+        if: github.ref == 'refs/heads/agent/fix-entry-video-deadlock'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          curl -L --fail --silent --show-error \
+            -A 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/126 Safari/537.36' \
+            'https://pixabay.com/music/ambient-futuristic-ambience-nowhere-175592/' \
+            -o page.html
+
+          python - <<'PY'
+          import html
+          import re
+          from pathlib import Path
+
+          raw = Path('page.html').read_text(encoding='utf-8', errors='ignore')
+          normalized = html.unescape(raw.replace(r'\/', '/'))
+          urls = sorted({
+              url.rstrip('\\')
+              for url in re.findall(r'https?://[^\"\'\s<>]+', normalized)
+              if '.mp3' in url.lower() or 'cdn.pixabay.com/download/audio/' in url.lower()
+          })
+          body = ['## Pixabay soundtrack probe', '', f'Found **{len(urls)}** candidate(s).', '']
+          body.extend(f'- `{url}`' for url in urls[:30])
+          if not urls:
+              body.append('- No direct MP3 URL was exposed in the server-rendered page.')
+          Path('probe-results.md').write_text('\n'.join(body) + '\n', encoding='utf-8')
+          PY
+
+          gh pr comment 17 --repo CrizR/KardashevScale --body-file probe-results.md
 
       - name: Upload failed build log
         if: failure() && steps.production-build.outcome == 'failure'
