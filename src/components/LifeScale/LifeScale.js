@@ -63,7 +63,7 @@ function BackgroundVideo({ src, shouldLoad, active, videoRef }) {
 export default function LifeScale() {
   const audioRef = useRef(null);
   const videoRefs = useRef([]);
-  const touchStartY = useRef(null);
+  const touchStart = useRef(null);
   const wheelLocked = useRef(false);
   const transitionTimer = useRef(null);
   const [currentPage, setCurrentPage] = useState(INTRO_INDEX);
@@ -113,6 +113,16 @@ export default function LifeScale() {
   }, [sections.length]);
 
   useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.volume = 0.72;
+    const playAttempt = audio.play();
+    if (playAttempt?.then) {
+      playAttempt.then(() => setSoundEnabled(true)).catch(() => setSoundEnabled(false));
+    }
+  }, []);
+
+  useEffect(() => {
     videoRefs.current.forEach((video, index) => {
       if (!video) return;
       if (index === currentPage) {
@@ -148,15 +158,29 @@ export default function LifeScale() {
   };
 
   const handleTouchStart = (event) => {
-    touchStartY.current = event.touches[0]?.clientY ?? null;
+    touchStart.current = {
+      y: event.touches[0]?.clientY ?? null,
+      content: event.target.closest?.('.section-content') ?? null,
+    };
   };
 
   const handleTouchEnd = (event) => {
-    if (touchStartY.current === null) return;
-    const endY = event.changedTouches[0]?.clientY ?? touchStartY.current;
-    const delta = touchStartY.current - endY;
-    touchStartY.current = null;
+    if (touchStart.current?.y === null || touchStart.current?.y === undefined) return;
+
+    const endY = event.changedTouches[0]?.clientY ?? touchStart.current.y;
+    const delta = touchStart.current.y - endY;
+    const content = touchStart.current.content;
+    touchStart.current = null;
+
     if (Math.abs(delta) < 46) return;
+
+    if (content && content.scrollHeight > content.clientHeight + 2) {
+      const maxScroll = content.scrollHeight - content.clientHeight;
+      const canScrollDown = delta > 0 && content.scrollTop < maxScroll - 2;
+      const canScrollUp = delta < 0 && content.scrollTop > 2;
+      if (canScrollDown || canScrollUp) return;
+    }
+
     move(delta > 0 ? 1 : -1);
   };
 
