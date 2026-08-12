@@ -20,6 +20,9 @@ import './ThreeScale.css';
 
 const CONTENT = [Type6, Type5, Type4, Type3, Type2, Type1, Type0, Introduction, TypeI, TypeII, TypeIII, TypeIV, TypeV, TypeVI, TypeO];
 const SOUND_KEY = 'kardashev-sound-preference';
+const WHEEL_SCALE = 0.00072;
+const MAX_WHEEL_STEP = 0.075;
+const DRAG_SCALE = 0.78;
 
 function Introduction() {
   return (
@@ -53,6 +56,7 @@ export default function LifeScale() {
   const pointer = useRef({ x: 0, y: 0 });
   const drag = useRef(null);
   const wheel = useRef(0);
+  const wheelReset = useRef(null);
   const saveTimer = useRef(null);
   const controlsTimer = useRef(null);
   const previousProgress = useRef(getSectionIndexFromLocation());
@@ -121,6 +125,7 @@ export default function LifeScale() {
   useEffect(() => () => {
     window.clearTimeout(controlsTimer.current);
     window.clearTimeout(saveTimer.current);
+    window.clearTimeout(wheelReset.current);
   }, []);
 
   const startSound = async () => {
@@ -172,19 +177,33 @@ export default function LifeScale() {
     revealControls();
   };
 
+  const contentCanConsumeWheel = (event) => {
+    const panel = event.target.closest?.('.three-copy');
+    if (!panel || panel.scrollHeight <= panel.clientHeight + 2) return false;
+    const atTop = panel.scrollTop <= 1;
+    const atBottom = panel.scrollTop >= panel.scrollHeight - panel.clientHeight - 1;
+    return (event.deltaY < 0 && !atTop) || (event.deltaY > 0 && !atBottom);
+  };
+
   const onWheel = (event) => {
     if (entryOpen || mapOpen) return;
+    if (contentCanConsumeWheel(event)) return;
     event.preventDefault();
-    wheel.current += event.deltaY * 0.0024;
-    const delta = wheel.current;
-    wheel.current *= 0.35;
-    updateProgress(progress + delta);
+
+    const normalized = Math.sign(event.deltaY) * Math.min(Math.abs(event.deltaY), 120);
+    wheel.current = THREEClamp(wheel.current + normalized * WHEEL_SCALE, -MAX_WHEEL_STEP, MAX_WHEEL_STEP);
+    updateProgress(progress + wheel.current);
+
+    window.clearTimeout(wheelReset.current);
+    wheelReset.current = window.setTimeout(() => { wheel.current = 0; }, 90);
   };
 
   const onPointerDown = (event) => {
     if (event.target.closest?.('button, a, aside')) return;
-    drag.current = { id: event.pointerId, y: event.clientY, progress };
-    event.currentTarget.setPointerCapture?.(event.pointerId);
+    const panel = event.target.closest?.('.three-copy');
+    const scrollableContent = Boolean(panel && panel.scrollHeight > panel.clientHeight + 2);
+    drag.current = { id: event.pointerId, y: event.clientY, progress, panel, scrollableContent };
+    if (!scrollableContent) event.currentTarget.setPointerCapture?.(event.pointerId);
   };
 
   const onPointerMove = (event) => {
@@ -192,14 +211,29 @@ export default function LifeScale() {
     pointer.current.y = -(event.clientY / Math.max(window.innerHeight, 1) - 0.5) * 2;
     revealControls();
     if (!drag.current || drag.current.id !== event.pointerId) return;
-    const delta = (drag.current.y - event.clientY) / Math.max(window.innerHeight, 1) * 1.25;
+
+    if (drag.current.scrollableContent) {
+      const deltaY = drag.current.y - event.clientY;
+      const panel = drag.current.panel;
+      const atTop = panel.scrollTop <= 1;
+      const atBottom = panel.scrollTop >= panel.scrollHeight - panel.clientHeight - 1;
+      const leavingAtTop = deltaY < -18 && atTop;
+      const leavingAtBottom = deltaY > 18 && atBottom;
+      if (!leavingAtTop && !leavingAtBottom) return;
+      drag.current = { ...drag.current, y: event.clientY, progress, scrollableContent: false };
+      event.currentTarget.setPointerCapture?.(event.pointerId);
+      return;
+    }
+
+    const delta = (drag.current.y - event.clientY) / Math.max(window.innerHeight, 1) * DRAG_SCALE;
     updateProgress(drag.current.progress + delta);
   };
 
   const onPointerUp = (event) => {
     if (!drag.current || drag.current.id !== event.pointerId) return;
+    const wasContentScroll = drag.current.scrollableContent;
     drag.current = null;
-    goTo(Math.round(progress));
+    if (!wasContentScroll) goTo(Math.round(progress));
   };
 
   const style = useMemo(() => ({ '--section-accent': current.accent, '--section-progress': localProgress }), [current.accent, localProgress]);
@@ -234,4 +268,8 @@ export default function LifeScale() {
       {entryOpen && <div className="three-entry"><div className="three-entry-copy"><p>One continuous real-time universe.</p><h1>Travel through the Kardashev Scale</h1><span>Every level is rendered as its own authored 3D environment. Scroll outward toward cosmic engineering or inward toward the structure of spacetime.</span><div><button type="button" className="primary" onClick={() => enter('immersive')}>Enter immersive</button><button type="button" onClick={() => enter('sound')}>Enter with sound</button><button type="button" onClick={() => enter('muted')}>Continue muted</button></div></div></div>}
     </main>
   );
+}
+
+function THREEClamp(value, min, max) {
+  return Math.max(min, Math.min(max, value));
 }
